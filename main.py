@@ -4,7 +4,7 @@ import pynput as pp
 import codecs
 import os
 
-gears_id = ['']*9
+gears_id = ['']*32
 vjoy_device = 1
 bg_def = '#3E3E3E'
 fg_def = '#DADADA'
@@ -12,7 +12,7 @@ gray = '#9C9C9C'
 white = '#FFFFFF'
 
 def release_keys():
-    for key in range(1, 9):
+    for key in range(1, 32):
         vjoy.set_button(key, 0)
 
 def on_press(key):
@@ -46,7 +46,7 @@ def on_press(key):
             release_keys()'''
         if key.char in gears_id:
             release_keys()
-            if gears_id.index(key.char)+1 != 9:
+            if gears_id.index(key.char)+1 != 32:
                 vjoy.set_button(gears_id.index(key.char)+1, 1)
     else:
         print('no!')
@@ -73,7 +73,7 @@ def start(*args):
 def save_settings(*args):
     global gears_id, vjoy_device
     error_flag = False
-    for i in range(0, 9):
+    for i in range(0, 32):
         var = gears[i].entry.get()
         if len(var) == 1:
             gears_id[i] = var
@@ -97,8 +97,31 @@ def save_settings(*args):
 5th gear:{gears_id[4]}
 6th gear:{gears_id[5]}
 7th gear:{gears_id[6]}
-reverse gear:{gears_id[7]}
-neutral gear:{gears_id[8]}'''
+8th gear:{gears_id[7]}
+9th gear:{gears_id[8]}
+10th gear:{gears_id[9]}
+11th gear:{gears_id[10]}
+12th gear:{gears_id[11]}
+13th gear:{gears_id[12]}
+14th gear:{gears_id[13]}
+15th gear:{gears_id[14]}
+16th gear:{gears_id[15]}
+17th gear:{gears_id[16]}
+18th gear:{gears_id[17]}
+19th gear:{gears_id[18]}
+20th gear:{gears_id[19]}
+21th gear:{gears_id[20]}
+22th gear:{gears_id[21]}
+23th gear:{gears_id[22]}
+24th gear:{gears_id[23]}
+parking gear:{gears_id[24]}
+reverse gear:{gears_id[25]}
+neutral gear:{gears_id[26]}
+drive gear:{gears_id[27]}
+low gear:{gears_id[28]}
+manual 1 gear:{gears_id[29]}
+manual 2 gear:{gears_id[30]}
+manual 3 gear:{gears_id[31]}'''
     with codecs.open(os.getcwd() + "\settings.txt", "w", encoding='utf-8') as a:
         a.write(new_settings)
 
@@ -136,8 +159,31 @@ def import_settings(*args):
     gears_id[4] = get_value('5th gear:', settings)
     gears_id[5] = get_value('6th gear:', settings)
     gears_id[6] = get_value('7th gear:', settings)
-    gears_id[7] = get_value('reverse gear:', settings)
-    gears_id[8] = get_value('neutral gear:', settings)
+    gears_id[7] = get_value('8th gear:', settings)
+    gears_id[8] = get_value('9th gear:', settings)
+    gears_id[9] = get_value('10th gear:', settings)
+    gears_id[10] = get_value('11th gear:', settings)
+    gears_id[11] = get_value('12th gear:', settings)
+    gears_id[12] = get_value('13th gear:', settings)
+    gears_id[13] = get_value('14th gear:', settings)
+    gears_id[14] = get_value('15th gear:', settings)
+    gears_id[15] = get_value('16th gear:', settings)
+    gears_id[16] = get_value('17th gear:', settings)
+    gears_id[17] = get_value('18th gear:', settings)
+    gears_id[18] = get_value('19th gear:', settings)
+    gears_id[19] = get_value('20th gear:', settings)
+    gears_id[20] = get_value('21th gear:', settings)
+    gears_id[21] = get_value('22th gear:', settings)
+    gears_id[22] = get_value('23th gear:', settings)
+    gears_id[23] = get_value('24th gear:', settings)
+    gears_id[24] = get_value('parking gear:', settings)
+    gears_id[25] = get_value('reverse gear:', settings)
+    gears_id[26] = get_value('neutral gear:', settings)
+    gears_id[27] = get_value('drive gear:', settings)
+    gears_id[28] = get_value('low gear:', settings)
+    gears_id[29] = get_value('manual 1st gear:', settings)
+    gears_id[30] = get_value('manual 2nd gear:', settings)
+    gears_id[31] = get_value('manual 3rd gear:', settings)
 
 def set_value(setting, value):
     if setting.entry.get() != '':
@@ -156,16 +202,38 @@ else:
 5th gear:5
 6th gear:6
 7th gear:7
-reverse gear:`
-neutral gear:q''')
+8th gear:8
+9th gear:9
+10th gear:0
+11th gear:a
+12th gear:b
+13th gear:c
+14th gear:e
+15th gear:f
+16th gear:g
+17th gear:h
+18th gear:i
+19th gear:j
+20th gear:k
+21th gear:m
+22th gear:o
+23th gear:q
+24th gear:s
+parking gear:p
+reverse gear:r
+neutral gear:n
+drive gear:d
+low gear:l
+manual 1st gear:t
+manual 2nd gear:u
+manual 3rd gear:v''')
     import_settings()
-
 
 app = tk.Tk()
 
-app.configure(width=400, height=200, background=bg_def)
+app.configure(width=1400, height=200, background=bg_def)
 app.resizable(0, 0)
-app.title('H-Shifter for AC')
+app.title('Multi-Shifter')
 
 
 if "dont_steal_this.ico" in os.listdir(os.getcwd()):
@@ -173,7 +241,7 @@ if "dont_steal_this.ico" in os.listdir(os.getcwd()):
 
 
 gearFrame = tk.Frame(app, highlightthickness=1, highlightcolor=white, highlightbackground=gray,
-                     width=322, height=77, bg=bg_def)
+                     width=1300, height=80, bg=bg_def)
 gearFrame.place(x=40, y=50)
 
 class Gear:
@@ -197,10 +265,8 @@ class Gear:
             frame.place(x=(id-1)//2*80, y=(id-1)%2*25)
 
 gears = []
-for i in range(1, 8):
+for i in range(1, 33):
     gears.append(Gear(i))
-gears.append(Gear('R'))
-gears.append(Gear('N'))
 
 vjoyFrame = tk.Frame(app, highlightthickness=1, highlightcolor=white, highlightbackground=gray,
                      width=100, height=25, bg=bg_def)
@@ -222,5 +288,7 @@ saveButton.place(x=40, y=150, height=25, width=80)
 startButton = tk.Button(app, text='Start', command = start,
                         bg=bg_def, fg=fg_def)
 startButton.place(x=280, y=150, height=25, width=80)
+
+start()
 
 app.mainloop()
